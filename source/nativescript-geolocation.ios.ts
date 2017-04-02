@@ -322,7 +322,6 @@ export class LocationMonitor implements LocationMonitorDef {
         iosLocManager.distanceFilter = options ? options.updateDistance : minRangeUpdate;
         locationManagers[locListener.id] = iosLocManager;
         locationListeners[locListener.id] = locListener;
-        iosLocManager.allowsBackgroundLocationUpdates = true;
         return iosLocManager;
     }
 }
