@@ -324,11 +324,19 @@ export class LocationMonitor implements LocationMonitorDef {
         locationManagers[locListener.id] = iosLocManager;
         locationListeners[locListener.id] = locListener;
         if (parseInt(Platform.device.osVersion.split(".")[0]) >= 9) {
-            iosLocManager.allowsBackgroundLocationUpdates = options && options.iosAllowsBackgroundLocationUpdates != null ?
-                options.iosAllowsBackgroundLocationUpdates : false;
+            if (options && options.iosAllowsBackgroundLocationUpdates != null) {
+                let allowBackgroundLocationUpdates = options.iosAllowsBackgroundLocationUpdates;
+                iosLocManager.allowsBackgroundLocationUpdates = allowBackgroundLocationUpdates;
+            } else {
+              iosLocManager.allowsBackgroundLocationUpdates = false;
+            }
         }
-        iosLocManager.pausesLocationUpdatesAutomatically = options && options.iosPausesLocationUpdatesAutomatically != null ?
-            options.iosPausesLocationUpdatesAutomatically : true;
+        if (options && options.iosPausesLocationUpdatesAutomatically != null) {
+          let pausesLocationUpdates = options.iosPausesLocationUpdatesAutomatically;
+          iosLocManager.pausesLocationUpdatesAutomatically = pausesLocationUpdates;
+        } else {
+          iosLocManager.pausesLocationUpdatesAutomatically = true;
+        }
         return iosLocManager;
     }
 }
